@@ -80,7 +80,7 @@ export default function Navbar() {
                                 />
                             }
                             children={
-                                <div className="flex h-24 w-56 flex-col justify-start rounded-[20px] bg-white bg-cover bg-no-repeat shadow-xl shadow-shadow-500 dark:!bg-navy-700 dark:text-white dark:shadow-none">
+                                <div className="flex h-36 w-56 flex-col justify-start rounded-[20px] bg-gray-200 bg-cover bg-no-repeat shadow-xl shadow-shadow-500 dark:!bg-navy-700 dark:text-white dark:shadow-none">
                                     <div className="mt-3 ml-4">
                                         <div className="flex items-center gap-2">
                                             <p className="text-sm font-bold text-navy-700 dark:text-white">
@@ -90,13 +90,6 @@ export default function Navbar() {
                                     </div>
                                     <div className="mt-3 h-px w-full bg-gray-200 dark:bg-white/20 " />
                                     <div className="mt-3 ml-4 flex flex-col">
-                                        <a
-                                            onClick={handleLogout}
-                                            href=""
-                                            className="mt-3 text-sm font-medium text-red-500 hover:text-red-500"
-                                        >
-                                            Đăng xuất
-                                        </a>
                                         <a
                                             href="/order"
                                             className=" flex mt-3 text-sm font-medium text-black hover:text-blue-600"
@@ -108,6 +101,14 @@ export default function Navbar() {
                                                 <rect x="6" y="10" width="12" height="1" fill="#000" />
                                                 <rect x="6" y="14" width="8" height="1" fill="#000" />
                                             </svg>
+                                        </a>
+                                        <div className='h-3'></div>
+                                        <a
+                                            onClick={handleLogout}
+                                            href=""
+                                            className="mt-3 text-sm font-medium text-red-500 hover:text-red-500"
+                                        >
+                                            Đăng xuất
                                         </a>
                                     </div>
                                 </div>

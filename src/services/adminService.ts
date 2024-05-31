@@ -49,3 +49,18 @@ export async function createOrder(formdata: {
         throw error;
     }
 }
+
+export async function getOrder(id :number) {
+
+    const token = getAccessToken();
+    try {
+        const response = await axios.get(API_URL + `orders/user/` + id, {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+
+}

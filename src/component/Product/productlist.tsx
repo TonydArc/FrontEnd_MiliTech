@@ -25,7 +25,7 @@ export default function Productlist() {
         try {
             const productsData = await getProducts();
             setProducts(productsData);
-            console.log(productsData);
+            // console.log(productsData);
 
         } catch (err) {
             alert(err);
@@ -45,6 +45,10 @@ export default function Productlist() {
             return;
         }
     }
+
+    const formatPrice = (price: number) => {
+        return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
+    };
     useEffect(() => {
         fetchProducts();
     }, []);
@@ -90,7 +94,7 @@ export default function Productlist() {
                                 <div className="pt-3 flex text-sm font-bold items-center justify-between">
                                     <p className="">{product.ProductName}</p>
                                 </div>
-                                <p className="pt-1 text-gray-500 text-left">{product.Price}</p>
+                                <p className="pt-1 text-gray-500 text-left">{formatPrice(product.Price)}</p>
                             </div>
                         </Link>
                     </div>

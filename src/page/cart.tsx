@@ -54,10 +54,14 @@ export default function Cart() {
         }
     };
 
+    const formatPrice = (price: number) => {
+        return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
+    };
+
     useEffect(() => {
         const calculatedSubtotal = items.reduce((acc, item) => acc + item.Price * item.Quantity, 0);
         setSubTotal(calculatedSubtotal);
-        setTotal(calculatedSubtotal + 5); // Assuming shipping is a flat $5
+        setTotal(calculatedSubtotal + 20000); // Assuming shipping is a flat $5
     }, [items]);
 
     if (!items.length) {
@@ -92,7 +96,7 @@ export default function Cart() {
                                             <span className="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50"> + </span>
                                         </div>
                                         <div className="flex items-center space-x-4">
-                                            <p className="text-sm">${item.Price}</p>
+                                            <p className="text-sm">{formatPrice(item.Price)}</p>
                                             {/* delete */}
                                             <svg onClick={() => { handleDelete(item.ProductId) }} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="h-5 w-5 cursor-pointer duration-150 hover:text-red-500">
                                                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -107,17 +111,17 @@ export default function Cart() {
                     <div className="mt-6 h-full rounded-lg border bg-white p-6 shadow-md md:mt-0 md:w-1/3">
                         <div className="mb-2 flex justify-between">
                             <p className="text-gray-700">Subtotal</p>
-                            <p className="text-gray-700">${subtotal}</p>
+                            <p className="text-gray-700">{formatPrice(subtotal)}</p>
                         </div>
                         <div className="flex justify-between">
                             <p className="text-gray-700">Shipping</p>
-                            <p className="text-gray-700">$5</p>
+                            <p className="text-gray-700">20.000 đ</p>
                         </div>
                         <hr className="my-4" />
                         <div className="flex justify-between">
                             <p className="text-lg font-bold">Total</p>
                             <div className="">
-                                <p className="mb-1 text-lg font-bold">${total}</p>
+                                <p className="mb-1 text-lg font-bold">{formatPrice(total)}</p>
                                 <p className="text-sm text-gray-700">including VAT</p>
                             </div>
                         </div>

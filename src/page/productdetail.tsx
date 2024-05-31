@@ -57,12 +57,15 @@ const ProductDetail = () => {
         }
     }, [id]); // Add id as a dependency
 
+    const formatPrice = (price: number) => {
+        return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
+    };
 
     const addToCart = (ProductId: number, ProductName: string, ImageURL: string, Price: number, Quantity: number) => {
         const existingItemIndex = items.findIndex((item: CartItem) => item.ProductId === ProductId);
 
         if (existingItemIndex !== -1) {
-            alert('san pham da ton tai trong gio hang');
+            alert('Sản phẩm đã tồn tại trong giỏ hàng');
         } else {
             const newItem = { ProductId, ProductName, ImageURL, Price , Quantity };
             console.log(ImageURL);
@@ -82,7 +85,7 @@ const ProductDetail = () => {
                     </div>
                     <div className="space-y-6">
                         <h2 className="text-2xl font-bold text-gray-800">{productDetail.ProductName}</h2>
-                        <p className="text-gray-600">{productDetail.Price}</p>
+                        <p className="text-gray-600 text-lg">{formatPrice(productDetail.Price)}</p>
                         <div>
                             <h3 className="text-lg font-bold text-gray-800 mt-6">Product information</h3>
                             <ul className="mt-2 text-gray-600">
