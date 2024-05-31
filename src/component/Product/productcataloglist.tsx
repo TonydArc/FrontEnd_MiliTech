@@ -1,7 +1,7 @@
-import { useEffect } from 'react'
-import { useState } from 'react'
-import { Link } from 'react-router-dom';
-import { getProducts, getProductsDetail } from '../../services/adminService';
+/* eslint-disable react-hooks/rules-of-hooks */
+import React, { useEffect, useState } from 'react'
+import { Link, useParams } from 'react-router-dom';
+import { getProductsByCatalog, getProductsDetail } from '../../services/adminService';
 import Cloudinaryshow from '../Cloudinary/Cloudinary';
 
 interface Product {
@@ -15,14 +15,15 @@ interface Product {
     Price: number;
 }
 
-export default function Productlist() {
+export default function Productcataloglist() {
     const [products, setProducts] = useState<Product[]>([]);
     const [productDetail, setProductsDetail] = useState([]);
     const [loading, setLoading] = useState(true);
+    const { catalog } = useParams();
 
     const fetchProducts = async () => {
         try {
-            const productsData = await getProducts();
+            const productsData = await getProductsByCatalog(catalog);
             setProducts(productsData);
             // console.log(productsData);
 
@@ -31,6 +32,9 @@ export default function Productlist() {
         } finally {
             setLoading(false);
         }
+    };
+    const formatPrice = (price: number) => {
+        return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
     };
     const handleDetail = async (ProductId: number) => {
         const id = ProductId;
@@ -45,12 +49,13 @@ export default function Productlist() {
         }
     }
 
-    const formatPrice = (price: number) => {
-        return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
-    };
     useEffect(() => {
         fetchProducts();
     }, []);
+
+    useEffect(() => {
+        console.log(products);
+    }, [products]);
 
     if (loading) {
         return (
@@ -81,7 +86,31 @@ export default function Productlist() {
     }
 
     return (
-        <>  
+        <>
+            <nav id="store" className="mt-12 w-full z-30 top-0 px-6 py-1">
+                <div className="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 px-2 py-3">
+
+                    <a className="uppercase tracking-wide no-underline hover:no-underline font-bold text-gray-800 text-xl " href="#">
+                        Các sản phẩm thuộc thương hiệu {catalog}
+                    </a>
+
+                    <div className="flex items-center" id="store-nav-content">
+
+                        <a className="pl-3 inline-block no-underline hover:text-black" href="">
+                            <svg className="fill-current hover:text-black" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path d="M7 11H17V13H7zM4 7H20V9H4zM10 15H14V17H10z" />
+                            </svg>
+                        </a>
+
+                        <a className="pl-3 inline-block no-underline hover:text-black" href="">
+                            <svg className="fill-current hover:text-black" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path d="M10,18c1.846,0,3.543-0.635,4.897-1.688l4.396,4.396l1.414-1.414l-4.396-4.396C17.365,13.543,18,11.846,18,10 c0-4.411-3.589-8-8-8s-8,3.589-8,8S5.589,18,10,18z M10,4c3.309,0,6,2.691,6,6s-2.691,6-6,6s-6-2.691-6-6S6.691,4,10,4z" />
+                            </svg>
+                        </a>
+
+                    </div>
+                </div>
+            </nav>
             <div className="flex flex-wrap">
                 {products.map((product: Product) => (
                     <div key={product.ProductId} className="w-full md:w-1/3 xl:w-1/4 p-6 flex flex-col">

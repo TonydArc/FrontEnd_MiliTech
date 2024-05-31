@@ -11,6 +11,7 @@ import Cart from './page/cart'
 import Checkout from './page/checkout'
 import Productdetail from './page/productdetail'
 import Order from './page/Order'
+import Productcataloglist from './component/Product/productcataloglist'
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path='/order' element={<Order/>}/>
         <Route path='/checkout' element={<Checkout/>}/>
         <Route path='/detail/:id' element={<Productdetail/>}/>
+        <Route path='/product/catalog/:catalog' element={<Productcataloglist/>}/>
         <Route path='*' element={<Error/>}/>
       </Routes>
 

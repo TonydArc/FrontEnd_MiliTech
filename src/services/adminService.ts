@@ -51,7 +51,6 @@ export async function createOrder(formdata: {
 }
 
 export async function getOrder(id :number) {
-
     const token = getAccessToken();
     try {
         const response = await axios.get(API_URL + `orders/user/` + id, {
@@ -62,5 +61,22 @@ export async function getOrder(id :number) {
     } catch (error) {
         throw error;
     }
+}
 
+export async function getCatalog() {
+    try {
+        const response = await axios.get(API_URL + `catalog`);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}
+
+export async function getProductsByCatalog(catalog :string) {
+    try {
+        const response = await axios.get(API_URL + `products/catalog/` + catalog);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
 }
